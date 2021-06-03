@@ -25,7 +25,10 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       working-directory: ./test/CustomerClassLibrary.Test
-      run: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=TestResults/
+      run: dotnet test --collect:"XPlat Code Coverage"
+    - name: TestCodeCov
+      working-directory: ./test/CustomerClassLibrary.Test
+      run: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=TestResults/ 
     - uses: codecov/codecov-action@v1
       with:
         token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos

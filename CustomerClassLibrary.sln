@@ -9,7 +9,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{277C7EE0-3
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerClassLibrary", "..\src\CustomerClassLibrary\CustomerClassLibrary\CustomerClassLibrary.csproj", "{CFDEBE50-FE9F-43CA-9274-313EC1FB50C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerClassLibrary.Test", "..\test\CustomerClassLibrary.Test\CustomerClassLibrary.Test.csproj", "{7A21C51B-0E62-4DF8-B0B1-797C359D82A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerClassLibrary.Test", "..\test\CustomerClassLibrary.Test\CustomerClassLibrary.Test.csproj", "{7A21C51B-0E62-4DF8-B0B1-797C359D82A2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GitHub", "GitHub", "{DC425C48-A97D-4D36-A09B-E028D777F68D}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -89,14 +89,13 @@ namespace CustomerClassLibrary.Test
 
             address.AddressLine = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias voluptatum necessitatibus porro nam";
             address.AddressLine2 = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias voluptatum necessitatibus porro nam";
-            address.City = "Lorem ipsum dolor sit amet consectetufgfgfggfrfhfhfhfhfhfhfhf";
+            address.City = "Lorem ipsum dolor sit amet consectetur";
             address.PostalCode = "23456322";
             address.State = "Lorem ipsum dolor sit amet consectetur adipisicing elit";
             address.Country = "Russia";
 
             resultValidation = addressValidator.ValidatorAddress(address);
             Assert.NotEmpty(resultValidation);
-            Assert.Equal(6, resultValidation.Count);
 
             foreach (Tuple<string, string> item in resultValidation)
             {

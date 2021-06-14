@@ -67,17 +67,17 @@ namespace CustomerClassLibrary.Test
             CustomerValidator addressValidator = new CustomerValidator();
             List<Tuple<string, string>> resultValidation;
 
-            customer.FirstName = "Lorem ipsum dolor sit amet consecteturποποπποποοποπο";
-            customer.LastName = "Lorem ipsum dolor sit amet consecteturοποποποποποποπ";
+            customer.FirstName = "Lorem ipsum dolor sit amet consectetur";
+            customer.LastName = "Lorem ipsum dolor sit amet consectetur";
             customer.AddressesList = new List<Address>();
-            customer.PhoneNumber = "+7232323232κεκεκεκε33";
+            customer.PhoneNumber = "+798645256300";
             customer.Email = "ellevanova-mail.ru";
             customer.Notes = new List<string>();
             //customer.TotalPurchasesAmount = 5.3;
 
             //test empty object
             resultValidation = addressValidator.ValidatorCustomer(customer);
-            Assert.Equal(6, resultValidation.Count);
+            Assert.Equal(3, resultValidation.Count);
 
             foreach (Tuple<string, string> item in resultValidation)
             {

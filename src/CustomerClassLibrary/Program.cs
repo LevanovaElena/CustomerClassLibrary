@@ -3,9 +3,9 @@ using System.Text.RegularExpressions;
 
 namespace CustomerClassLibrary
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
         }
     }

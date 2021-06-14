@@ -9,6 +9,9 @@ namespace CustomerClassLibrary.Test
         [Fact]
         public void ShouldCreateEmptyCustomerObject()
         {
+            Program program = new Program();
+            Program.Main(args: new string[1]);
+            
             Customer address = new Customer();
             CustomerValidator addressValidator = new CustomerValidator();
             List<Tuple<string, string>> resultValidation;

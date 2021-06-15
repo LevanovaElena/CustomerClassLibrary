@@ -36,5 +36,7 @@ namespace CustomerClassLibrary
         public List<string> Notes { get; set; }
         
         public decimal? TotalPurchasesAmount { get; set; }
+
+        public int IdCustomer { get; set; } = 0;
     }
 }

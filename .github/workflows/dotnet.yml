@@ -39,3 +39,4 @@ jobs:
         fail_ci_if_error: true 
         verbose: true
         ignore: -"./test/IntegrationTests"
+                -"./src/Repositories"

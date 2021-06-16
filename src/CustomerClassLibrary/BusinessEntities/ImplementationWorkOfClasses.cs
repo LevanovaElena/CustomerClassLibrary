@@ -9,6 +9,8 @@ namespace CustomerClassLibrary
 {
     public class ImplementationWorkOfClasses
     {
+        public List<Customer> Customers { get; set; } = new List<Customer>();
+
 
         public void AddedCustomer()
         {
@@ -25,14 +27,49 @@ namespace CustomerClassLibrary
             CustomerValidator customerValidator = new CustomerValidator();
             List<Tuple<string, string>> resultValidation=customerValidator.ValidatorCustomer(customer);
             if (resultValidation.Count > 0) throw new NotCorrectValuesForCreateCustomer();
-            else SaveCustomerInBd(customer);
+            else
+            {
+                SaveCustomerInBd(customer);
+                Customers.Add(customer);
+            }
 
+        }
+
+        public void DeleteCustomer()
+        {
+            if (Customers.Count > 0)
+            {
+                CustomerRepository customerRepository = new CustomerRepository();
+                customerRepository.Delete(Customers[0].IdCustomer);
+            }
+        }
+
+        public void UpdateCustomer()
+        {
+            Customer customer = Customers[0];
+            CustomerRepository customerRepository = new CustomerRepository();
+            customer.FirstName = "Ivan";
+            customer.LastName = "Ivanov";
+            customer.AddressesList[0].Country = "United States";
+
+            customerRepository.Update(customer);
+            UpdateAddressList(customer);
+        }
+
+        public void UpdateAddressList(Customer customer)
+        {
+            AddressRepository addressRepository = new AddressRepository();
+            foreach (Address address in customer.AddressesList)
+            {
+                addressRepository.Update(address, customer.IdCustomer);
+            }
         }
 
         public void SaveCustomerInBd(Customer customer)
         {
             CustomerRepository customerRepository = new CustomerRepository();
             int idCustomer= customerRepository.Create(customer);
+            customer.IdCustomer = idCustomer;
             AddressRepository addressRepository = new AddressRepository();
             foreach (Address address in customer.AddressesList)
             {

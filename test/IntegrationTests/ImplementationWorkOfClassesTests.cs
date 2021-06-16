@@ -23,5 +23,23 @@ namespace IntegrationTests
             implementationWork.AddedCustomer();
 
         }
+        [Fact]
+        public void ShouldBeAbleDeleteCustomer()
+        {
+            ImplementationWorkOfClasses implementationWork = new ImplementationWorkOfClasses();
+            implementationWork.AddedCustomer();
+            implementationWork.DeleteCustomer();
+
+        }
+
+        [Fact]
+        public void ShouldBeAbleUpdateCustomer()
+        {
+            ImplementationWorkOfClasses implementationWork = new ImplementationWorkOfClasses();
+            implementationWork.AddedCustomer();
+
+            implementationWork.UpdateCustomer();
+
+        }
     }
 }

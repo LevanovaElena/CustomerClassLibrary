@@ -66,6 +66,7 @@ namespace CustomerClassLibrary.Test
             address.PostalCode = "234563";
             address.State = "Ontario";
             address.Country = "Canada";
+            address.IdAddress = 10;
 
             //test empty object
             resultValidation = addressValidator.ValidatorAddress(address);

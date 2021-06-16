@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace CustomerClassLibrary.Repositories
@@ -21,8 +22,8 @@ namespace CustomerClassLibrary.Repositories
 
                 //insert command
                 command.CommandText =
-                    "INSERT INTO dbo.customers (first_name,last_name,phone_number,customer_email,total_purchases_amount)" +
-                    "VALUES(@first_name, @last_name, @phone_number, @customer_email, @total_purchases_amount);"+
+                    "INSERT INTO dbo.customers (first_name,last_name,phone_number,customer_email,total_purchases_amount,notes)" +
+                    "VALUES(@first_name, @last_name, @phone_number, @customer_email, @total_purchases_amount,@notes);"+
                     "SELECT CAST(scope_identity() AS int)"; 
 
 
@@ -53,7 +54,11 @@ namespace CustomerClassLibrary.Repositories
                 });
 
 
-                //command.ExecuteNonQuery();
+                command.Parameters.Add(new SqlParameter("@notes", SqlDbType.VarChar, 255)
+                {
+                    Value = JsonSerializer.Serialize<List<string>>(customer.Notes)
+                });
+
 
                 customerId = (Int32)command.ExecuteScalar();
 
@@ -107,7 +112,7 @@ namespace CustomerClassLibrary.Repositories
 
                 //insert command
                 command.CommandText =
-                    "UPDATE customers SET first_name=@first_name,last_name=@last_name,phone_number=@phone_number,customer_email=@customer_email,total_purchases_amount=@total_purchases_amount" +
+                    "UPDATE customers SET first_name=@first_name,last_name=@last_name,phone_number=@phone_number,customer_email=@customer_email,total_purchases_amount=@total_purchases_amount,notes=@notes" +
                     " WHERE customer_id=@customer_id";
 
 
@@ -137,6 +142,12 @@ namespace CustomerClassLibrary.Repositories
                 {
                     Value = customer.TotalPurchasesAmount
                 });
+
+                command.Parameters.Add(new SqlParameter("@notes", SqlDbType.VarChar, 255)
+                {
+                    Value = JsonSerializer.Serialize<List<string>>(customer.Notes)
+                });
+
                 command.Parameters.Add(new SqlParameter("@customer_id", SqlDbType.Int)
                 {
                     Value = customer.IdCustomer
@@ -178,7 +189,9 @@ namespace CustomerClassLibrary.Repositories
                             PhoneNumber=reader["phone_number"]?.ToString(),
                             Email = reader["customer_email"]?.ToString(),
                             TotalPurchasesAmount =(decimal) reader["total_purchases_amount"],
-                            IdCustomer=idCustomer
+                            Notes= JsonSerializer.Deserialize<List<string>>(reader["notes"].ToString()),
+                            IdCustomer =idCustomer
+
                         };
                     }
                 }

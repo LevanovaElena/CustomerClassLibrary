@@ -39,6 +39,7 @@ namespace CustomerClassLibrary
         [Required(ErrorMessage = "Country is required.")]
         [Country]
         public string Country { get; set; }
+        public int IdAddress { get; set; } = 0;
 
         public Address()
         {

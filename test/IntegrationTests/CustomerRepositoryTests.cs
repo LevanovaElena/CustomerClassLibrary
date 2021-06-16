@@ -36,8 +36,9 @@ namespace IntegrationTests
                 customer.AddressesList = new List<Address>();
                 customer.AddressesList.Add(new Address());
                 customer.Notes = new List<string>();
-                customer.Notes.Add("Lorem.....");
-
+                customer.Notes.Add("Note1");
+                customer.Notes.Add("Note2");
+                customer.Notes.Add("Note3");
 
                 return customer;
             }
@@ -90,10 +91,14 @@ namespace IntegrationTests
             CustomerRepository customerRepository = new CustomerRepository();
             Customer customer = customerRepositoryFixture.CreateMockCustomer();
 
-            customerRepository.Read(customer.IdCustomer);
+            customer=customerRepository.Read(customer.IdCustomer);
+            Assert.NotEmpty(customer.Notes);
 
             Assert.Null(customerRepository.Read(20));
         }
+
+
+
 
     }
 }

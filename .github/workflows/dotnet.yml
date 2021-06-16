@@ -28,7 +28,7 @@ jobs:
       run: dotnet test --collect:"XPlat Code Coverage"
     - name: TestCodeCov
       working-directory: ./test/CustomerClassLibrary.Test
-      run: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=TestResults/ /p:ExcludeByAttribute="IntegrationTests"
+      run: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=TestResults/ /p:ExcludeByAttribute="IntegrationTests" /p:ExcludeByFile=\"**/Repositories/*.cs,**/BusinessEntities/ImplementationWorkOfClasses.cs\"
     - uses: codecov/codecov-action@v1
       with:
         token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
@@ -38,5 +38,3 @@ jobs:
         name: codecov-umbrella
         fail_ci_if_error: true 
         verbose: true
-        ignore: -"./test/IntegrationTests"
-                -"./src/Repositories"

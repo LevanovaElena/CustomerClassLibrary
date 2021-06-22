@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CustomerClassLibrary.Repositories
 {
-    public class AddressRepository : BaseRepository,IAddressRepository
+    public class AddressRepository : BaseRepository
     {
         public int Create(Address address,int idCustomer)
         {

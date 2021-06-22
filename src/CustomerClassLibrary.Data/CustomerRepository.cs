@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace CustomerClassLibrary.Repositories
 {
-    public class CustomerRepository : BaseRepository,ICustomerRepository
+    public class CustomerRepository : BaseRepository
     {
-        public int CustomerId { get; set; } = 0;
-        public int  Create(Customer customer)
+        int customerId = 0;
+        public int Create(Customer customer)
         {
             using (var connection = this.GetConnection())
             {
@@ -60,12 +60,12 @@ namespace CustomerClassLibrary.Repositories
                 });
 
 
-                CustomerId = (Int32)command.ExecuteScalar();
+                customerId = (Int32)command.ExecuteScalar();
 
                 connection.Close();
             }
 
-            return CustomerId;
+            return customerId;
         }
 
         public void DeleteAll()

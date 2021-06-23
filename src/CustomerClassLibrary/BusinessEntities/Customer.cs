@@ -17,9 +17,7 @@ namespace CustomerClassLibrary
         [StringLength(50, ErrorMessage = "LastName should maximum 50 lenght.")]
         public override string LastName { get; set; }
 
-
-        [Required(ErrorMessage = "AddressesList is required.")]
-        [MinLength(1, ErrorMessage = "AddressesList must be at least one address.")]
+        [AddressListAttribute]
         public List<Address> AddressesList { get; set; }
 
 
@@ -32,7 +30,7 @@ namespace CustomerClassLibrary
 
 
         [Required(ErrorMessage = "Note cannot be empty, at least 1 note must be provided.")]
-        [MinLength(1, ErrorMessage = "Notes must be at least one note.")]
+        [NotesListAttribute]
         public List<string> Notes { get; set; }
         
         public decimal? TotalPurchasesAmount { get; set; }

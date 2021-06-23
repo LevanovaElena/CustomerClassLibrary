@@ -1,7 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net472</TargetFramework>
+    <LangVersion>9.0</LangVersion>
 
     <IsPackable>false</IsPackable>
   </PropertyGroup>
@@ -25,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\CustomerClassLibrary.WebForm\CustomerClassLibrary.WebForm.csproj" />
     <ProjectReference Include="..\..\src\CustomerClassLibrary\CustomerClassLibrary.csproj" />
   </ItemGroup>
 

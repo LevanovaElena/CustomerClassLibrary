@@ -41,7 +41,7 @@ namespace CustomerClassLibrary.Business
             };
             customer.Notes.Add("Lorem.....");
             customer.TotalPurchasesAmount = 5;
-            CustomerValidator customerValidator = new();
+            CustomerValidator customerValidator = new CustomerValidator();
             List<Tuple<string, string>> resultValidation = customerValidator.ValidatorCustomer(customer);
             if (resultValidation.Count > 0) throw new NotCorrectValuesForCreateCustomer();
             return customer;

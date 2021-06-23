@@ -15,10 +15,10 @@ namespace CustomerClassLibrary
             var result = new List<Tuple<string, string>>();
             var results = new List<ValidationResult>();
             var context = new ValidationContext(cust);
+            
             if (!Validator.TryValidateObject(cust, context, results, true))
             {
                 foreach (var error in results)
-
                 {
                     foreach (var memberName in error.MemberNames)
                     {

@@ -89,7 +89,7 @@ namespace CustomerClassLibrary
         {
 
             Customer customer = CreateCustomer();
-            CustomerValidator customerValidator = new();
+            CustomerValidator customerValidator = new CustomerValidator();
             List<Tuple<string, string>> resultValidation=customerValidator.ValidatorCustomer(customer);
             if (resultValidation.Count > 0) throw new NotCorrectValuesForCreateCustomer();
             else

@@ -16,7 +16,7 @@ namespace CustomerClassLibrary.Repositories
             using (var connection = this.GetConnection())
             {
                 connection.Open();
-                SqlCommand command = new SqlCommand();
+                SqlCommand command = new();
                 command.Connection = connection;
 
                 //insert command
@@ -95,7 +95,7 @@ namespace CustomerClassLibrary.Repositories
                         {
                             AddressLine = reader["address_line"]?.ToString(),
                             AddressLine2 = reader["address_line2"]?.ToString(),
-                            TypeAddress = Enum.Parse<AddressType>(reader["address_type"].ToString()),
+                            TypeAddress = (AddressType)Enum.Parse(typeof(AddressType),reader["address_type"].ToString()),
                             City = reader["city"]?.ToString(),
                             PostalCode = reader["postal_code"]?.ToString(),
                             State = reader["state"]?.ToString(),

@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
-using System.Text.Json;
+//using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace CustomerClassLibrary.Repositories
@@ -23,12 +25,12 @@ namespace CustomerClassLibrary.Repositories
                 //insert command
                 command.CommandText =
                     "INSERT INTO dbo.customers (first_name,last_name,phone_number,customer_email,total_purchases_amount,notes)" +
-                    "VALUES(@first_name, @last_name, @phone_number, @customer_email, @total_purchases_amount,@notes);"+
-                    "SELECT CAST(scope_identity() AS int)"; 
+                    "VALUES(@first_name, @last_name, @phone_number, @customer_email, @total_purchases_amount,@notes);" +
+                    "SELECT CAST(scope_identity() AS int)";
 
 
 
-                command.Parameters.Add( new SqlParameter("@first_name", SqlDbType.VarChar, 50)
+                command.Parameters.Add(new SqlParameter("@first_name", SqlDbType.VarChar, 50)
                 {
                     Value = customer.FirstName
                 });
@@ -56,7 +58,8 @@ namespace CustomerClassLibrary.Repositories
 
                 command.Parameters.Add(new SqlParameter("@notes", SqlDbType.VarChar, 255)
                 {
-                    Value = JsonSerializer.Serialize<List<string>>(customer.Notes)
+
+                    Value = JsonConvert.SerializeObject(customer.Notes) //JsonSerializer.Serialize<List<string>>(customer.Notes)
                 });
 
 
@@ -145,7 +148,7 @@ namespace CustomerClassLibrary.Repositories
 
                 command.Parameters.Add(new SqlParameter("@notes", SqlDbType.VarChar, 255)
                 {
-                    Value = JsonSerializer.Serialize<List<string>>(customer.Notes)
+                    Value = JsonConvert.SerializeObject(customer.Notes)//JsonSerializer.Serialize<List<string>>(customer.Notes)
                 });
 
                 command.Parameters.Add(new SqlParameter("@customer_id", SqlDbType.Int)
@@ -186,12 +189,11 @@ namespace CustomerClassLibrary.Repositories
                         {
                             FirstName = reader["first_name"]?.ToString(),
                             LastName = reader["last_name"]?.ToString(),
-                            PhoneNumber=reader["phone_number"]?.ToString(),
+                            PhoneNumber = reader["phone_number"]?.ToString(),
                             Email = reader["customer_email"]?.ToString(),
-                            TotalPurchasesAmount =(decimal) reader["total_purchases_amount"],
-                            Notes= JsonSerializer.Deserialize<List<string>>(reader["notes"].ToString()),
+                            TotalPurchasesAmount = (decimal)reader["total_purchases_amount"],
+                            Notes = JsonConvert.DeserializeObject<List<string>>(reader["notes"].ToString()),//JsonSerializer.Deserialize<List<string>>(reader["notes"].ToString()),
                             IdCustomer =idCustomer
-
                         };
                     }
                 }

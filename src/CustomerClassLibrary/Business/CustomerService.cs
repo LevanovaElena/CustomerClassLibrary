@@ -40,6 +40,8 @@ namespace CustomerClassLibrary.Business
                 Notes = new List<string>()
             };
             customer.Notes.Add("Lorem.....");
+            customer.Notes.Add("Lorem1.....");
+            customer.Notes.Add("Lorem2.....");
             customer.TotalPurchasesAmount = 5;
             CustomerValidator customerValidator = new CustomerValidator();
             List<Tuple<string, string>> resultValidation = customerValidator.ValidatorCustomer(customer);

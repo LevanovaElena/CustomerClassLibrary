@@ -79,9 +79,15 @@ namespace CustomerClassLibrary.Business
             return addresses;
         }
 
-        public object InsertCustomer(Customer customer)
+        public int InsertCustomer(Customer customer)
         {
-            return _customerRepository.Create(customer);
+            customer.AddressesList=CreateAddressList();
+            int k = _customerRepository.Create(customer);
+            foreach (Address address in customer.AddressesList)
+            {
+                _addressRepository.Create(address, k);
+            }
+            return k;
         }
 
         public Customer AddCustomer()

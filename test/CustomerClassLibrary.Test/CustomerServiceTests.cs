@@ -68,29 +68,30 @@ namespace CustomerClassLibrary.Test
         public void ShouldBeAbleSaveCustomerInBd()
         {
             CustomerServiceFixture customerServiceFixture = new CustomerServiceFixture();
-            Customer customer = new Customer();
-            int customerIdExpected = 1;
+
+
+            customerServiceFixture.CreateMockRepositories();
+            var service = customerServiceFixture.Service;
+
+            Customer customer = service.CreateCustomer();
+            customer.AddressesList = service.CreateAddressList();
 
             customerServiceFixture.customerCustomerMock
                 .Setup(x => x.Create(customer))
                 .Returns(1);
 
-            customerServiceFixture.CreateMockRepositories();
-            var service = customerServiceFixture.Service;
+            customerServiceFixture.addressAddressMock
+                .Setup(x => x.Create(customer.AddressesList[0], 1))
+                .Returns(1);
 
             var customerActual = service.InsertCustomer(customer);
 
             Assert.Equal(1, customerActual);
 
-            int addressIdExpected = 1;
-            customerServiceFixture.addressAddressMock
-                .Setup(x => x.Create(service.CreateAddress(), customerIdExpected))
-                .Returns(() => addressIdExpected);
-
-            service.AddCustomer();
-
             customerServiceFixture.customerCustomerMock
                 .Verify(x => x.Create(customer), Times.AtLeastOnce);
+            customerServiceFixture.addressAddressMock
+                .Verify(x => x.Create(customer.AddressesList[0], 1), Times.AtLeastOnce);
         }
   
     

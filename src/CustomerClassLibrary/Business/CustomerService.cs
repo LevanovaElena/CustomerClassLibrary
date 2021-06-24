@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CustomerClassLibrary.Business
 {
-    public class CustomerService
+    public class CustomerService:ICustomerService
     {
         private readonly ICustomerRepository _customerRepository;
         private readonly IAddressRepository _addressRepository;
@@ -107,7 +107,34 @@ namespace CustomerClassLibrary.Business
         public Customer GetCustomer(int id)
         {
             Customer customer = _customerRepository.Read(id);
+            if(customer!=null) customer.AddressesList = _addressRepository.ReadByIdCustomer(customer.IdCustomer);
             return customer;
         }
+
+        public List<Customer> GetAllCustomers()
+        {
+            List<Customer> listCustomers = _customerRepository.ReadAll();
+
+            if (listCustomers.Count > 0)
+            {
+                foreach(Customer customer in listCustomers)
+                {
+                    customer.AddressesList = _addressRepository.ReadByIdCustomer(customer.IdCustomer);
+                }
+            }
+            return listCustomers;
+        }
+
+        public void DeleteCustomer(int idCustomer)
+        {
+             _customerRepository.Delete(idCustomer);
+        }
+    }
+
+    public interface ICustomerService
+    {
+        List<Customer> GetAllCustomers();
+        public Customer GetCustomer(int id);
+        public void DeleteCustomer(int idCustomer);
     }
 }

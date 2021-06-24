@@ -40,6 +40,7 @@ namespace CustomerClassLibrary
         [CountryAttribute]
         public string Country { get; set; }
         public int IdAddress { get; set; } = 0;
+        public int IdCustomer { get; set; } = 0;
 
         public Address()
         {

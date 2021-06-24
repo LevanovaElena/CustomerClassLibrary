@@ -201,6 +201,37 @@ namespace CustomerClassLibrary.Repositories
             }
             return null;
         }
+
+        public List<Customer> ReadAll()
+        {
+            List<Customer> listCustomer = new List<Customer>();
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+
+                var command = new SqlCommand(
+                    "SELECT * FROM customers ", connection);
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        listCustomer.Add( new Customer()
+                        {
+                            FirstName = reader["first_name"]?.ToString(),
+                            LastName = reader["last_name"]?.ToString(),
+                            PhoneNumber = reader["phone_number"]?.ToString(),
+                            Email = reader["customer_email"]?.ToString(),
+                            TotalPurchasesAmount = (decimal)reader["total_purchases_amount"],
+                            Notes = JsonConvert.DeserializeObject<List<string>>(reader["notes"].ToString()),//JsonSerializer.Deserialize<List<string>>(reader["notes"].ToString()),
+                            IdCustomer = (int)reader["customer_id"]
+                        });
+                    }
+                }
+
+            }
+            return listCustomer;
+        }
     }
 
 }

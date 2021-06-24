@@ -1,4 +1,6 @@
-﻿namespace CustomerClassLibrary.Repositories
+﻿using System.Collections.Generic;
+
+namespace CustomerClassLibrary.Repositories
 {
     public interface IAddressRepository
     {
@@ -7,5 +9,6 @@
         public void Update(Address address, int idCustomer);
 
         public void DeleteAllByCustomer(int idCustomer);
+        List<Address> ReadByIdCustomer(int idCustomer);
     }
 }

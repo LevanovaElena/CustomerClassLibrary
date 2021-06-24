@@ -58,7 +58,7 @@ namespace IntegrationTests
             noteRep.Update(address, repositoryFixture.IdCustomer);
         }
         [Fact]
-        public void ShouldBeAbleToReadAddressByIdAddress()
+        public void ShouldBeAbleReadAddressByIdAddress()
         {
             var repositoryFixture = new AddressRepositoryFixture();
             AddressRepository noteRep = new AddressRepository();
@@ -73,6 +73,18 @@ namespace IntegrationTests
             Assert.Equal(address.City, addressRead.City);
             Assert.Equal(address.PostalCode, addressRead.PostalCode);
             //Assert.Equal(address.State, addressRead.State);
+        }
+
+        [Fact]
+        public void ShouldBeAbleReadAddressByIdCustomer()
+        {
+            var repositoryFixture = new AddressRepositoryFixture();
+            AddressRepository noteRep = new AddressRepository();
+            Address address = repositoryFixture.CreateMockAddress();
+
+            List<Address> addressRead = noteRep.ReadByIdCustomer(repositoryFixture.IdCustomer);
+            Assert.NotEmpty(addressRead);
+
         }
     }
 

@@ -97,6 +97,17 @@ namespace IntegrationTests
             Assert.Null(customerRepository.Read(20));
         }
 
+        [Fact]
+        public void ShouldBeAbleToSelectAllCustomer()
+        {
+            var customerRepositoryFixture = new CustomerRepositoryFixture();
+            CustomerRepository customerRepository = new CustomerRepository();
+            Customer customer = customerRepositoryFixture.CreateMockCustomer();
+
+            var listCustomer = customerRepository.ReadAll();
+            Assert.NotEmpty(listCustomer);
+
+        }
 
 
 

@@ -198,5 +198,45 @@ namespace CustomerClassLibrary.Repositories
 
             }
         }
+
+        public List<Address> ReadByIdCustomer(int idCustomer)
+        {
+            List<Address> addressList = new List<Address>();
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+
+                var command = new SqlCommand(
+                    "SELECT * FROM address_customer WHERE customer_id = @customer_id", connection);
+
+                 var customerIdParam = new SqlParameter("@customer_id", SqlDbType.Int)
+                 {
+                     Value = idCustomer
+                 };
+
+                command.Parameters.Add(customerIdParam);
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        addressList.Add(new Address()
+                        {
+                            AddressLine = reader["address_line"]?.ToString(),
+                            AddressLine2 = reader["address_line2"]?.ToString(),
+                            TypeAddress = (AddressType)Enum.Parse(typeof(AddressType), reader["address_type"].ToString()),
+                            City = reader["city"]?.ToString(),
+                            PostalCode = reader["postal_code"]?.ToString(),
+                            State = reader["state"]?.ToString(),
+                            Country = reader["country"]?.ToString(),
+                            IdAddress = int.Parse(reader["address_id"]?.ToString()),
+                            IdCustomer = idCustomer
+                        });
+                    }
+                }
+
+            }
+            return addressList;
+        }
     }
 }

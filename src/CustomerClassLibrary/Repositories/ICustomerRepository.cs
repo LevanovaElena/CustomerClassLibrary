@@ -1,4 +1,6 @@
-﻿namespace CustomerClassLibrary.Repositories
+﻿using System.Collections.Generic;
+
+namespace CustomerClassLibrary.Repositories
 {
     public interface ICustomerRepository
     {
@@ -9,5 +11,6 @@
         public void Delete(int idCustomer);
 
         public void Update(Customer customer);
+        public List<Customer> ReadAll();
     }
 }

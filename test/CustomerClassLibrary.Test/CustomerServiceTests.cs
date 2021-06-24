@@ -65,6 +65,28 @@ namespace CustomerClassLibrary.Test
         }
 
         [Fact]
+        public void ShouldGetAllCustomers()
+        {
+            CustomerServiceFixture customerServiceFixture = new CustomerServiceFixture();
+            var customerExpected = new Customer();
+            List<Customer> list = new List<Customer>();
+            list.Add(customerExpected);
+            customerServiceFixture.customerCustomerMock
+                .Setup(x => x.ReadAll())
+                .Returns(() => list);
+
+            customerServiceFixture.CreateMockRepositories();
+            var service = customerServiceFixture.Service;
+
+            var customer = service.GetAllCustomers();
+
+
+            customerServiceFixture.customerCustomerMock
+                .Verify(x => x.ReadAll(), Times.AtLeastOnce);
+        }
+
+
+        [Fact]
         public void ShouldBeAbleSaveCustomerInBd()
         {
             CustomerServiceFixture customerServiceFixture = new CustomerServiceFixture();

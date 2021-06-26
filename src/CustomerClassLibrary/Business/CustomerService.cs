@@ -114,10 +114,26 @@ namespace CustomerClassLibrary.Business
         public List<Customer> GetAllCustomers()
         {
             List<Customer> listCustomers = _customerRepository.ReadAll();
+            this.GetAddressesForCustomers(listCustomers);
+            return listCustomers;
+        }
+        public List<Customer> GetAllCustomersFromNumber(int numberOfRow, int sumRow)
+        {
+            List<Customer> listCustomers = _customerRepository.ReadCustomerFromNumber(numberOfRow,sumRow);
+            this.GetAddressesForCustomers(listCustomers);
+            return listCustomers;
+        }
 
+        public void DeleteCustomer(int idCustomer)
+        {
+             _customerRepository.Delete(idCustomer);
+        }
+
+        public List<Customer> GetAddressesForCustomers(List<Customer> listCustomers)
+        {
             if (listCustomers.Count > 0)
             {
-                foreach(Customer customer in listCustomers)
+                foreach (Customer customer in listCustomers)
                 {
                     customer.AddressesList = _addressRepository.ReadByIdCustomer(customer.IdCustomer);
                 }
@@ -125,9 +141,9 @@ namespace CustomerClassLibrary.Business
             return listCustomers;
         }
 
-        public void DeleteCustomer(int idCustomer)
+        public int GetCountCustomer()
         {
-             _customerRepository.Delete(idCustomer);
+            return _customerRepository.CountOfCustomers();
         }
     }
 
@@ -136,5 +152,7 @@ namespace CustomerClassLibrary.Business
         List<Customer> GetAllCustomers();
         public Customer GetCustomer(int id);
         public void DeleteCustomer(int idCustomer);
+        public List<Customer> GetAllCustomersFromNumber(int numberOfRow, int sumRow);
+        public int GetCountCustomer();
     }
 }

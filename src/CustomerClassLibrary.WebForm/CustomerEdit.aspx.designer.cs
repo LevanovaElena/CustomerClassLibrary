@@ -150,13 +150,13 @@ namespace CustomerClassLibrary.WebForm
         protected global::System.Web.UI.WebControls.TableHeaderCell Country;
 
         /// <summary>
-        /// ColumnForBtn control.
+        /// idAddress control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TableHeaderCell ColumnForBtn;
+        protected global::System.Web.UI.WebControls.TableHeaderCell idAddress;
 
         /// <summary>
         /// idCustomer control.
@@ -166,5 +166,14 @@ namespace CustomerClassLibrary.WebForm
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TableHeaderCell idCustomer;
+
+        /// <summary>
+        /// Actions control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TableHeaderCell Actions;
     }
 }

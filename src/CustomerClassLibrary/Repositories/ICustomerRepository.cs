@@ -12,5 +12,7 @@ namespace CustomerClassLibrary.Repositories
 
         public void Update(Customer customer);
         public List<Customer> ReadAll();
+        public int CountOfCustomers();
+        public List<Customer> ReadCustomerFromNumber(int numberOfRow, int numberFromRow);
     }
 }

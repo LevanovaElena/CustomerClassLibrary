@@ -109,7 +109,27 @@ namespace IntegrationTests
 
         }
 
+        [Fact]
+        public void ShouldBeAbleToSelectCustomerFromNumber()
+        {
+            var customerRepositoryFixture = new CustomerRepositoryFixture();
+            CustomerRepository customerRepository = new CustomerRepository();
+            Customer customer = customerRepositoryFixture.CreateMockCustomer();
 
+            List<Customer> listCustomer = customerRepository.ReadCustomerFromNumber(5,5);
+            Assert.NotEmpty(listCustomer);
+
+        }
+
+        [Fact]
+        public void ShouldBeAbleReturnNumberOfCustomers()
+        {
+            var customerRepositoryFixture = new CustomerRepositoryFixture();
+            CustomerRepository customerRepository = new CustomerRepository();
+
+            Assert.Equal(1, customerRepository.CountOfCustomers());
+
+        }
 
     }
 }

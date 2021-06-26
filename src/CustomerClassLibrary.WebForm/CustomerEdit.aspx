@@ -73,18 +73,23 @@
                     <asp:TableHeaderCell id="Country" Scope="Column">
                             Country
                         </asp:TableHeaderCell>
-                    <asp:TableHeaderCell id="ColumnForBtn" Scope="Column">
+                    <asp:TableHeaderCell id="idAddress" Scope="Column"  Visible="false">
+                            idAddress
                         </asp:TableHeaderCell>
                     <asp:TableHeaderCell id="idCustomer" Scope="Column"  Visible="false">
                             idCustomer
                         </asp:TableHeaderCell>
+                    <asp:TableHeaderCell id="Actions" Scope="Column"  Visible="true">
+                            Actions
+                        </asp:TableHeaderCell>
                 </asp:TableHeaderRow>
 
         </asp:Table>
-            </div>
-        <asp:Button runat="server" CssClass="btn btn-primary" 
+            <asp:Button runat="server" CssClass="btn btn-primary" 
                     OnClick="OnSaveClick" 
                     Text="Save" />
+            </div>
+        
         </div>
 
        

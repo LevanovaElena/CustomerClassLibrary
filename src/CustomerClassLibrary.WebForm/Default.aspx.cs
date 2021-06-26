@@ -16,28 +16,54 @@ namespace CustomerClassLibrary.WebForm
         public List<Customer> CustomerList { get; set; }
          Customer ActiveCustomer { get; set; }
         int ActiveNumberCustomer { get; set; } = 0;
+
+        const int NumberCustomersOnPage= 5;
+        int ActivePagePagination { get; set; } = 1;
+        public int CountOfPaginationButton { get; set; } = 1;
         public _Default()
         {
             _customerService = new CustomerService();
-            CustomerList = _customerService.GetAllCustomers();
+            
 
         }
-        protected void Page_Load(object sender, EventArgs e)
+
+        protected override void OnPreLoad(EventArgs e)
         {
             if (!IsPostBack)
             {
                 
+                string idDelete = Request["idCustomerDelete"];
+                int idCustomer;
+                if (!String.IsNullOrEmpty(idDelete) && int.TryParse(idDelete, out idCustomer))
+                {
+                    _customerService.DeleteCustomer(idCustomer);
+                }
+                
             }
-            
         }
-
-
-        public void OnSaveClick(object sender, EventArgs e)
+        protected void Page_Load(object sender, EventArgs e)
         {
-            //save in db
 
-            
+                int countCustomer= _customerService.GetCountCustomer();
+                int result;
+            CountOfPaginationButton = Math.DivRem(countCustomer, NumberCustomersOnPage, out result);
+            CountOfPaginationButton = result > 0 ? CountOfPaginationButton++ : CountOfPaginationButton;
+
+            string paginationPage = Request["pagePagination"];
+            int pagePagination;
+            if (!String.IsNullOrEmpty(paginationPage) && int.TryParse(paginationPage, out pagePagination))
+            {
+                CustomerList = _customerService.GetAllCustomersFromNumber(NumberCustomersOnPage, pagePagination * NumberCustomersOnPage);
+                ActivePagePagination = pagePagination;
+            }
+            else
+            {
+                CustomerList = _customerService.GetAllCustomersFromNumber(NumberCustomersOnPage, ActivePagePagination * NumberCustomersOnPage);
+            }
+
+
         }
+
         public void OnDeleteClick(object sender, CommandEventArgs e)
         {
             int idDelete= Int32.Parse(e.CommandArgument.ToString());
@@ -48,24 +74,17 @@ namespace CustomerClassLibrary.WebForm
         }
         public void OnPrevClick(object sender, CommandEventArgs e)
         {
-            ActiveNumberCustomer = Int32.Parse(e.CommandArgument.ToString());
-            if (ActiveNumberCustomer == 0) ActiveNumberCustomer = CustomerList.Count - 1;
-            else ActiveNumberCustomer--;
-            ActiveCustomer = CustomerList[ActiveNumberCustomer];
-            btnPrev.CommandArgument = ActiveNumberCustomer.ToString();
-            btnNext.CommandArgument = ActiveNumberCustomer.ToString();
-            
+            ActivePagePagination -= 1;
+            ActivePagePagination = ActivePagePagination <=0 ? CountOfPaginationButton : ActivePagePagination;
+            Response.Redirect("Default?pagePagination=" + ActivePagePagination);
+
         }
         public void OnNextClick(object sender, CommandEventArgs e)
         {
-            ActiveNumberCustomer =Int32.Parse(e.CommandArgument.ToString());
+            ActivePagePagination += 1;
+            ActivePagePagination = ActivePagePagination > CountOfPaginationButton ? 1 : ActivePagePagination;
+            Response.Redirect("Default?pagePagination=" + ActivePagePagination);
 
-            if (ActiveNumberCustomer == CustomerList.Count - 1) ActiveNumberCustomer = 0;
-            else ActiveNumberCustomer++;
-            ActiveCustomer = CustomerList[ActiveNumberCustomer];
-            btnNext.CommandArgument = ActiveNumberCustomer.ToString();
-            btnPrev.CommandArgument = ActiveNumberCustomer.ToString();
-            
         }
     }
 }

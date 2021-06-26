@@ -15,42 +15,44 @@
                 <td><%= customer.AddressesList.Count %></td>
                 <td> 
                     <a class="btn btn-success" href="CustomerEdit?idCustomer=<%= customer.IdCustomer %>">Edit</a>
-                    <asp:Button ID="btnDelete" runat="server" CssClass="btn btn-danger" 
-                            CommandName="numberCustomer"
-                            CommandArgument="<%= customer.IdCustomer %>"
-                            Text="Delete"
-                            OnCommand="OnDeleteClick"  />
-
+                    <a class="btn btn-danger" href="Default?idCustomerDelete=<%= customer.IdCustomer %>">Delete</a>
                 </td>
             </tr>
 
         <% } %>
     </table>
 
+
+
     </div>
 
     <nav aria-label="Page navigation example">
-  <ul class="pagination">
-    <li class="page-item">
-        <asp:Button ID="btnPrev" runat="server" CssClass="page-link" 
-            CommandName="numberCustomer"
-            CommandArgument="0"
-            Text="<<"
-            OnCommand="OnPrevClick"  />
-        
-        </li>
-<%--        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>--%>
+      <ul class="pagination">
         <li class="page-item">
-          <asp:Button runat="server" CssClass="page-link"
-              ID="btnNext"
-              CommandName="numberCustomer"
-            CommandArgument="0"
-            Text=">>"
-            OnCommand="OnNextClick" />
-    </li>
-  </ul>
+            <asp:Button ID="btnPrev" runat="server" CssClass="page-link" 
+                CommandName="numberCustomer"
+                CommandArgument="0"
+                Text="<<"
+                OnCommand="OnPrevClick"  />
+        
+            </li>
+           <% for (int i = 0; i <= CountOfPaginationButton; i++)
+               {
+                   int k = i + 1;%>
+
+           <li class="page-item">
+               <a class="page-link" href="Default?pagePagination=<%= k %>"><%= k %></a>
+           </li>
+           <%} %>
+            <li class="page-item">
+              <asp:Button runat="server" CssClass="page-link"
+                  ID="btnNext"
+                  CommandName="numberCustomer"
+                CommandArgument="0"
+                Text=">>"
+                OnCommand="OnNextClick" />
+        </li>
+      </ul>
 </nav>
 </div>
 </asp:Content>

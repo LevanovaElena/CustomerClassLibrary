@@ -10,5 +10,6 @@ namespace CustomerClassLibrary.Repositories
 
         public void DeleteAllByCustomer(int idCustomer);
         List<Address> ReadByIdCustomer(int idCustomer);
+        public void DeleteByIdAddress(int idAddress);
     }
 }

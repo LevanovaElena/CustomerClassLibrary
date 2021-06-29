@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CustomerClassLibrary
 {
+    [Serializable]
     public abstract class Person
     {
         [StringLength(50, MinimumLength = 1)]

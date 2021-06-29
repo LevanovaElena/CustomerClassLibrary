@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CustomerClassLibrary
 {
+    [Serializable]
      public class Customer:Person
     {
 

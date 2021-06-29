@@ -4,6 +4,17 @@
 <div class="container-fluide h-100 mt-3">
 
     <table class="table">
+        <tr  class="table-light">
+                <th>Name</th>
+                <th>Email</th>
+                <th>PhoneNumber</th>
+                <th>TPA</th>
+                <th>Notes</th>
+                <th>AddressesList</th>
+                <th> 
+                   Actions
+                </th>
+        </tr>
         <% foreach (var customer in CustomerList) { %>
 
             <tr>
@@ -11,8 +22,21 @@
                 <td><%= customer.Email %></td>
                 <td><%= customer.PhoneNumber %></td>
                 <td><%= customer.TotalPurchasesAmount %></td>
-                <td><%= customer.Notes.Count %></td>
-                <td><%= customer.AddressesList.Count %></td>
+                <td><table class="table table-light table-bordered table-sm fs-6" >
+                        
+                        <% foreach (string note in customer.Notes){%>
+                           <tr><td><%= note %></td></tr>
+                        <%} %>
+                       
+                    </table>
+                </td>  
+                <td><table class="table table-light table-bordered table-sm fs-6" >
+                        
+                        <% foreach (var address in customer.AddressesList){%>
+                           <tr><td><%=  address.Country + " " + address.State + " " + address.PostalCode + " " + address.City + " " + address.TypeAddress + " " + address.AddressLine + " (" + address.AddressLine2 + ")"%></td></tr>
+                        <%} %>
+                       
+                    </table></td>
                 <td> 
                     <a class="btn btn-success" href="CustomerEdit?idCustomer=<%= customer.IdCustomer %>">Edit</a>
                     <a class="btn btn-danger" href="Default?idCustomerDelete=<%= customer.IdCustomer %>">Delete</a>
@@ -22,9 +46,6 @@
         <% } %>
     </table>
 
-
-
-    </div>
 
     <nav aria-label="Page navigation example">
       <ul class="pagination">

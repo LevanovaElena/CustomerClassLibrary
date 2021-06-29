@@ -7,7 +7,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CustomerClassLibrary
 {
-    public class Address
+    [Serializable]
+    public class Address:Entity
     {
         [Required(ErrorMessage = "AddressLine is required.")]
         [MaxLength(100,ErrorMessage = "AddressLine should maximum 100 lenght.")]
@@ -46,5 +47,13 @@ namespace CustomerClassLibrary
         {
 
         }
+
+    }
+
+
+    [Serializable]
+    public class Entity
+    {
+
     }
 }

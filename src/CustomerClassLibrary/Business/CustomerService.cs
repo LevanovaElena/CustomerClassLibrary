@@ -145,6 +145,59 @@ namespace CustomerClassLibrary.Business
         {
             return _customerRepository.CountOfCustomers();
         }
+
+        public void UpdateCustomer(Customer customer)
+        {
+
+            _customerRepository.Update(customer);
+            UpdateAddressList(customer);
+        }
+        public void UpdateAddressList(Customer customer)
+        {
+            var addressList = _addressRepository.ReadByIdCustomer(customer.IdCustomer);
+            if (addressList.Count > customer.AddressesList.Count)
+            {
+                foreach (Address address in addressList)
+                {
+                    bool toDelete = false;
+                    foreach (Address address1 in customer.AddressesList)
+                    {
+                        if (address.IdAddress == address1.IdAddress)
+                        {
+                            toDelete = false;
+                            break;
+                        }
+                        toDelete = true;
+                        
+                    }
+                    if(toDelete) _addressRepository.DeleteByIdAddress(address.IdAddress);
+                }
+            }
+            foreach (Address address in customer.AddressesList)
+            {
+                if (address.IdAddress != 0) _addressRepository.Update(address, customer.IdCustomer);
+                else _addressRepository.Create(address, customer.IdCustomer);
+            }
+        }
+
+        public List<Tuple<string, string>> Validate(Customer customer)
+        {
+            CustomerValidator customerValidator = new CustomerValidator();
+            List<Tuple<string, string>> resultValidation = customerValidator.ValidatorCustomer(customer);
+            return resultValidation;
+        }
+
+        public List<Tuple<string, string>> ValidateAddress(Address address)
+        {
+            AddressValidator addressValidator = new AddressValidator();
+            List<Tuple<string, string>> resultValidation = addressValidator.ValidatorAddress(address);
+            return resultValidation;
+        }
+
+        public void UpdateAddress(Address address,int idCustomer)
+        {
+            _addressRepository.Update(address, idCustomer);
+        }
     }
 
     public interface ICustomerService
@@ -154,5 +207,10 @@ namespace CustomerClassLibrary.Business
         public void DeleteCustomer(int idCustomer);
         public List<Customer> GetAllCustomersFromNumber(int numberOfRow, int sumRow);
         public int GetCountCustomer();
+        public void UpdateCustomer(Customer customer);
+        public void UpdateAddressList(Customer customer);
+        public List<Tuple<string, string>> Validate(Customer customer);
+        public List<Tuple<string, string>> ValidateAddress(Address address);
+        public void UpdateAddress(Address address, int idCustomer);
     }
 }

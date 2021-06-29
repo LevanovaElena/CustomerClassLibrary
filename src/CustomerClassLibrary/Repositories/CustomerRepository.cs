@@ -193,7 +193,7 @@ namespace CustomerClassLibrary.Repositories
             using (var connection = GetConnection())
             {
                 connection.Open();
-
+                //sumRow = sumRow == 0 ? numberOfRow : sumRow;
                 var command = new SqlCommand(
                     "SELECT TOP "+numberOfRow+" customer_id,* FROM customers WHERE customer_id not in (SELECT TOP "+ (sumRow-numberOfRow)
                     + " customer_id FROM customers) order by customers.customer_id", connection);

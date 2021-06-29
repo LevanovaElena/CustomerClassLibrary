@@ -238,5 +238,25 @@ namespace CustomerClassLibrary.Repositories
             }
             return addressList;
         }
+
+        public void DeleteByIdAddress(int idAddress)
+        {
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+
+                var command = new SqlCommand(
+                    "DELETE FROM address_customer WHERE address_id = @address_id", connection);
+
+                var customerIdParam = new SqlParameter("@address_id", SqlDbType.Int)
+                {
+                    Value = idAddress
+                };
+
+                command.Parameters.Add(customerIdParam);
+                command.ExecuteNonQuery();
+
+            }
+        }
     }
 }

@@ -41,10 +41,6 @@
             <asp:Repeater id="repeaterNotes" ItemType="System.string" OnItemCommand="repeaterNotes_ItemCommand" runat="server">
               <HeaderTemplate>
                  <table class="table table-light">
-<%--                    <tr>
-                       <th>Notes</th>
-                        <th></th>
-                    </tr>--%>
               </HeaderTemplate>
              
               <ItemTemplate>
@@ -67,7 +63,7 @@
                     Text="New Note" />
         </div>
         <div class="m-3">
-            <h4 >Addresses</h4>
+            <h4 >Addresses</h4><asp:Label runat="server" Text="" CssClass="form-label m-2 small text-danger" ID="lblAddressesError"></asp:Label>
         </div>
         <asp:Label ID="lblNumberCustomer" runat="server" Text="0" Visible="false"></asp:Label>
 

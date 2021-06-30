@@ -225,12 +225,20 @@ namespace CustomerClassLibrary.WebForm
                 }
             }
 
-            foreach (Address address in customer.AddressesList)
+            if (customer.AddressesList.Count > 0)
             {
-                AddressWithValidationField addressWithValidation = new AddressWithValidationField(address);
-                addressWithValidation.ValidatorAddress(address);
-                if (addressWithValidation.IsError) isUpdate = false;
-                listValidateAddress.Add(addressWithValidation);
+                foreach (Address address in customer.AddressesList)
+                {
+                    AddressWithValidationField addressWithValidation = new AddressWithValidationField(address);
+                    addressWithValidation.ValidatorAddress(address);
+                    if (addressWithValidation.IsError) isUpdate = false;
+                    listValidateAddress.Add(addressWithValidation);
+                }
+            }
+            else
+            {
+                isUpdate = false;
+                lblAddressesError.Text = "Customer should at least 1 address must be provided.";
             }
              
             if(isUpdate)_customerService.UpdateCustomer(customer);
@@ -239,6 +247,7 @@ namespace CustomerClassLibrary.WebForm
             if(isUpdate)Repeater.DataSource = GetValidationListAddress(Customer.AddressesList);
             else Repeater.DataSource =listValidateAddress;
             Repeater.DataBind();
+            Response?.Redirect("Default");
         }
 
         public void TextErrorClear()

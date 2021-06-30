@@ -15,7 +15,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegrationTests", "test\In
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerClassLibrary.WebForm", "src\CustomerClassLibrary.WebForm\CustomerClassLibrary.WebForm.csproj", "{63397694-F1F7-4C26-9ACD-75A9C131EAA6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerClassLibrary.WebForms.Tests", "test\CustomerClassLibrary.WebForms.Tests\CustomerClassLibrary.WebForms.Tests.csproj", "{8A95E86B-87DF-47EB-ACBB-38BB4845702B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerClassLibrary.WebForms.Tests", "test\CustomerClassLibrary.WebForms.Tests\CustomerClassLibrary.WebForms.Tests.csproj", "{8A95E86B-87DF-47EB-ACBB-38BB4845702B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerClassLibrary.WebMVC", "src\CustomerClassLibrary.WebMVC\CustomerClassLibrary.WebMVC.csproj", "{CA1A783C-1494-48F6-85C4-962FD608FAF3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerClassLibrary.WebMVC.Tests", "CustomerClassLibrary.WebMVC.Tests\CustomerClassLibrary.WebMVC.Tests.csproj", "{ED8761A9-6251-463D-8274-B9FBC3A80CF0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +47,14 @@ Global
 		{8A95E86B-87DF-47EB-ACBB-38BB4845702B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A95E86B-87DF-47EB-ACBB-38BB4845702B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A95E86B-87DF-47EB-ACBB-38BB4845702B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA1A783C-1494-48F6-85C4-962FD608FAF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA1A783C-1494-48F6-85C4-962FD608FAF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA1A783C-1494-48F6-85C4-962FD608FAF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA1A783C-1494-48F6-85C4-962FD608FAF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED8761A9-6251-463D-8274-B9FBC3A80CF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED8761A9-6251-463D-8274-B9FBC3A80CF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED8761A9-6251-463D-8274-B9FBC3A80CF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED8761A9-6251-463D-8274-B9FBC3A80CF0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,6 +65,8 @@ Global
 		{69CB933A-2B7B-4B7C-8A1E-440EA3B3C1E0} = {7CB0F525-F735-4431-B7C0-9FE6BBA98D6B}
 		{63397694-F1F7-4C26-9ACD-75A9C131EAA6} = {41A2DBCA-B5F1-442D-93DC-9EF679B06E2E}
 		{8A95E86B-87DF-47EB-ACBB-38BB4845702B} = {7CB0F525-F735-4431-B7C0-9FE6BBA98D6B}
+		{CA1A783C-1494-48F6-85C4-962FD608FAF3} = {41A2DBCA-B5F1-442D-93DC-9EF679B06E2E}
+		{ED8761A9-6251-463D-8274-B9FBC3A80CF0} = {7CB0F525-F735-4431-B7C0-9FE6BBA98D6B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {68564DC9-551F-422D-AD9B-0A0BD8B5C4BC}

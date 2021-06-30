@@ -198,6 +198,21 @@ namespace CustomerClassLibrary.Business
         {
             _addressRepository.Update(address, idCustomer);
         }
+
+        public Customer Create(Customer customer)
+        {
+            customer.AddressesList = new List<Address>();
+            customer.Notes = new List<string>();
+            customer.Notes.Add("new note");
+
+
+           customer.IdCustomer= _customerRepository.Create(customer);
+            foreach (Address address in customer.AddressesList)
+            {
+                _addressRepository.Create(address, customer.IdCustomer);
+            }
+           return customer;
+        }
     }
 
     public interface ICustomerService
@@ -212,5 +227,6 @@ namespace CustomerClassLibrary.Business
         public List<Tuple<string, string>> Validate(Customer customer);
         public List<Tuple<string, string>> ValidateAddress(Address address);
         public void UpdateAddress(Address address, int idCustomer);
+        public Customer Create(Customer customer);
     }
 }

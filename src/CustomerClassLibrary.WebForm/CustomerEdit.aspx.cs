@@ -240,14 +240,19 @@ namespace CustomerClassLibrary.WebForm
                 isUpdate = false;
                 lblAddressesError.Text = "Customer should at least 1 address must be provided.";
             }
-             
-            if(isUpdate)_customerService.UpdateCustomer(customer);
+
+            if (isUpdate)
+            {
+                if (customer.IdCustomer == 0) customer = _customerService.Create(customer);
+                else _customerService.UpdateCustomer(customer);
+                Response?.Redirect("Default");
+            }
             
             this.Customer = customer;
             if(isUpdate)Repeater.DataSource = GetValidationListAddress(Customer.AddressesList);
             else Repeater.DataSource =listValidateAddress;
             Repeater.DataBind();
-            Response?.Redirect("Default");
+            
         }
 
         public void TextErrorClear()

@@ -12,7 +12,7 @@ namespace CustomerClassLibrary
     {
 
         [StringLength(50, ErrorMessage = "FirstName should maximum 50 lenght.")]
-        public override string FirstName { get; set; }
+        public override string FirstName { get; set; } = "";
 
         [Required(ErrorMessage = "LastName is required.")]
         [StringLength(50, ErrorMessage = "LastName should maximum 50 lenght.")]
@@ -37,5 +37,12 @@ namespace CustomerClassLibrary
         public decimal? TotalPurchasesAmount { get; set; }
 
         public int IdCustomer { get; set; } = 0;
+
+        public Customer()
+        {
+            FirstName = "Lena";
+            AddressesList = new List<Address>();
+            Notes = new List<string>();
+        }
     }
 }

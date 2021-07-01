@@ -32,8 +32,8 @@ namespace CustomerClassLibrary.Repositories
 
                 command.Parameters.Add(new SqlParameter("@first_name", SqlDbType.VarChar, 50)
                 {
-                    Value = customer.FirstName
-                });
+                    Value = customer.FirstName == null ? DBNull.Value : customer.FirstName
+                }); 
 
                 command.Parameters.Add(new SqlParameter("@last_name", SqlDbType.VarChar, 50)
                 {
@@ -42,17 +42,17 @@ namespace CustomerClassLibrary.Repositories
 
                 command.Parameters.Add(new SqlParameter("@phone_number", SqlDbType.VarChar, 15)
                 {
-                    Value = customer.PhoneNumber
+                    Value = customer.PhoneNumber == null ? DBNull.Value : customer.PhoneNumber
                 });
 
                 command.Parameters.Add(new SqlParameter("@customer_email", SqlDbType.VarChar, 255)
                 {
-                    Value = customer.Email
+                    Value = customer.Email == null ? DBNull.Value : customer.Email
                 });
 
                 command.Parameters.Add(new SqlParameter("@total_purchases_amount", SqlDbType.VarChar, 255)
                 {
-                    Value = customer.TotalPurchasesAmount
+                    Value = customer.TotalPurchasesAmount == null ? DBNull.Value : customer.TotalPurchasesAmount
                 });
 
 
@@ -208,8 +208,8 @@ namespace CustomerClassLibrary.Repositories
                             LastName = reader["last_name"]?.ToString(),
                             PhoneNumber = reader["phone_number"]?.ToString(),
                             Email = reader["customer_email"]?.ToString(),
-                            TotalPurchasesAmount = (decimal)reader["total_purchases_amount"],
-                            Notes = JsonConvert.DeserializeObject<List<string>>(reader["notes"].ToString()),//JsonSerializer.Deserialize<List<string>>(reader["notes"].ToString()),
+                            TotalPurchasesAmount = reader["total_purchases_amount"] != DBNull.Value ? decimal.Parse(reader["total_purchases_amount"].ToString()) : 0,
+                            Notes = reader["notes"] != null ? JsonConvert.DeserializeObject<List<string>>(reader["notes"].ToString()) : null,
                             IdCustomer = (int)reader["customer_id"]
                         });
                     }
@@ -245,8 +245,8 @@ namespace CustomerClassLibrary.Repositories
                             LastName = reader["last_name"]?.ToString(),
                             PhoneNumber = reader["phone_number"]?.ToString(),
                             Email = reader["customer_email"]?.ToString(),
-                            TotalPurchasesAmount = (decimal)reader["total_purchases_amount"],
-                            Notes = JsonConvert.DeserializeObject<List<string>>(reader["notes"].ToString()),//JsonSerializer.Deserialize<List<string>>(reader["notes"].ToString()),
+                            TotalPurchasesAmount = reader["total_purchases_amount"] != DBNull.Value ? decimal.Parse(reader["total_purchases_amount"].ToString()) : 0,
+                            Notes = reader["notes"] != null ? JsonConvert.DeserializeObject<List<string>>(reader["notes"].ToString()) : null,
                             IdCustomer =idCustomer
                         };
                     }
@@ -276,8 +276,8 @@ namespace CustomerClassLibrary.Repositories
                             LastName = reader["last_name"]?.ToString(),
                             PhoneNumber = reader["phone_number"]?.ToString(),
                             Email = reader["customer_email"]?.ToString(),
-                            TotalPurchasesAmount = (decimal)reader["total_purchases_amount"],
-                            Notes = JsonConvert.DeserializeObject<List<string>>(reader["notes"].ToString()),//JsonSerializer.Deserialize<List<string>>(reader["notes"].ToString()),
+                            TotalPurchasesAmount = reader["total_purchases_amount"]!= DBNull.Value ? decimal.Parse(reader["total_purchases_amount"].ToString()):0,
+                            Notes = reader["notes"]!=null? JsonConvert.DeserializeObject<List<string>>(reader["notes"].ToString()):null,
                             IdCustomer = (int)reader["customer_id"]
                         });
                     }

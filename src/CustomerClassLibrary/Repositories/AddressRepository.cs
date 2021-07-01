@@ -39,7 +39,7 @@ namespace CustomerClassLibrary.Repositories
 
                 command.Parameters.Add(new SqlParameter("@address_line2", SqlDbType.VarChar, 100)
                 {
-                    Value = address.AddressLine2
+                    Value = address.AddressLine2 == null ? DBNull.Value : address.AddressLine2
                 });
                 command.Parameters.Add(new SqlParameter("@address_type", SqlDbType.VarChar, 15)
                 {
@@ -145,7 +145,7 @@ namespace CustomerClassLibrary.Repositories
 
                 command.Parameters.Add(new SqlParameter("@address_line2", SqlDbType.VarChar, 100)
                 {
-                    Value = address.AddressLine2
+                    Value = address.AddressLine2 == null ? DBNull.Value : address.AddressLine2
                 });
                 command.Parameters.Add(new SqlParameter("@address_type", SqlDbType.VarChar, 15)
                 {

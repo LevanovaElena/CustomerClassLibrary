@@ -48,6 +48,10 @@ namespace CustomerClassLibrary
 
         }
 
+        public Address(int idCustomer)
+        {
+            IdCustomer = idCustomer;
+        }
     }
 
 

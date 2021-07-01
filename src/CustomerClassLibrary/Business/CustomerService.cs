@@ -165,7 +165,7 @@ namespace CustomerClassLibrary.Business
                         if (address.IdAddress == address1.IdAddress)
                         {
                             toDelete = false;
-                            break;
+                            continue;
                         }
                         toDelete = true;
                         
@@ -201,8 +201,7 @@ namespace CustomerClassLibrary.Business
 
         public Customer Create(Customer customer)
         {
-            customer.AddressesList = new List<Address>();
-            customer.Notes = new List<string>();
+            
             customer.Notes.Add("new note");
 
 

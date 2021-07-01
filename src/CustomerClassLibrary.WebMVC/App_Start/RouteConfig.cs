@@ -18,6 +18,7 @@ namespace CustomerClassLibrary.WebMVC
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Customer", action = "Index", id = UrlParameter.Optional }
             );
+           
         }
     }
 }

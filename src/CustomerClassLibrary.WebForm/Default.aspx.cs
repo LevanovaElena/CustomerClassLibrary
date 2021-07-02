@@ -14,8 +14,6 @@ namespace CustomerClassLibrary.WebForm
     {
         private readonly ICustomerService _customerService;
         public List<Customer> CustomerList { get; set; }
-         Customer ActiveCustomer { get; set; }
-        int ActiveNumberCustomer { get; set; } = 0;
 
         const int NumberCustomersOnPage= 5;
         int ActivePagePagination { get; set; } = 1;

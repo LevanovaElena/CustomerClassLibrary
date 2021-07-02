@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Edit";
+    ViewBag.Type = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -63,12 +64,14 @@
             @Html.ValidationMessageFor(model => model.IdCustomer, "", new { @class = "text-danger" })
         </div>
     </div>
+    
+    @Html.Partial("NotesListEdit", Model)
 
     @Html.Partial("AddressesListEdit", Model)
 
     <div class="form-group">
         <div class="">
-            <input type="submit" name="action" value="Save" class="btn btn-lg" />
+            <input type="submit" name="action" value="Save" formaction=@Url.Action("Edit",new {id=Model.IdCustomer }) formmethod="post" class="btn btn-lg" />
         </div>
     </div>
 </div>

@@ -1,0 +1,47 @@
+﻿@model CustomerClassLibrary.Customer
+
+@{
+    ViewBag.Title = "Notes";
+    Layout = null;
+}
+
+<div class="form-group">
+    <div class="m-3">
+        @Html.ValidationMessageFor(model => model.Notes, "", new { @class = "text-danger" })
+       
+        <div class="form-group d-flex">
+            
+            <h4>Notes @ViewBag.Type</h4>
+            <div class="">
+                <input type="submit" name="action" value="AddNote" formaction=@Url.Action("AddNote",new {id=Model.IdCustomer ,viewName=ViewBag.Type}) formmethod="post" class="btn btn-default btn-xs" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            @using (Html.BeginForm())
+            {
+                <table class="table">
+                    <tr>
+                        <th>Note</th>
+                        <th>Actions</th>
+                    </tr>
+                    @for (int i = 0; i < Model.Notes.Count; i++)
+                    {
+                        <tr>
+                            <td>
+                                @Html.EditorFor(model => model.Notes[i])
+                            </td>
+                            <td>
+
+                                <input type="submit" name="action" value="Delete" formaction=@Url.Action("DeleteNote", new { id = Model.IdCustomer, viewName = ViewBag.Type, deleteNote = Model.Notes.IndexOf(Model.Notes[i]) }) formmethod="post" class="btn btn-default" />
+  
+                            </td>
+                        </tr>
+                    }
+                </table>
+            }
+            </div>
+
+    </div>
+
+</div>

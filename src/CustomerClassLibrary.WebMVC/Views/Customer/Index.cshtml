@@ -1,11 +1,12 @@
-﻿@model IEnumerable<CustomerClassLibrary.Customer>
+﻿@model CustomerClassLibrary.WebMVC.Models.IndexViewModel
+@using CustomerClassLibrary.WebMVC.Helpers
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>List of all customers</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -13,16 +14,16 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.FirstName)
+            @Html.DisplayNameFor(model => model.Customers[0].FirstName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LastName)
+            @Html.DisplayNameFor(model => model.Customers[0].LastName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PhoneNumber)
+            @Html.DisplayNameFor(model => model.Customers[0].PhoneNumber)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Email)
+            @Html.DisplayNameFor(model => model.Customers[0].Email)
         </th>
         <th>
             TPA
@@ -31,56 +32,78 @@
             Id
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.AddressesList)
+            Notes
         </th>
-        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.Customers[0].AddressesList)
+        </th>
+        <th>
+            Actions
+        </th>
     </tr>
 
-@foreach (var item in Model) {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.FirstName)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.LastName)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.PhoneNumber)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Email)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.TotalPurchasesAmount)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.IdCustomer)
-    </td>
-    <td>
-        <table class="table table-light table-bordered table-sm fs-6">
-            @for (var index = 0; index < item.AddressesList.Count; index++)
-            {
-                var address = item.AddressesList[index];
-                <tr>
-                    <td>
-                        @address.Country,
-                        @address.State, 
-                        @address.PostalCode,
-                        @address.City,
-                        @address.TypeAddress,
-                        @address.AddressLine
-                        @address.AddressLine2
-                    </td>
-                </tr>
-            }
-        </table>
-</td>
-    <td>
-        @Html.ActionLink("Edit", "Edit", new {  id=item.IdCustomer  }) |
-        @Html.ActionLink("Details", "Details", new { id=item.IdCustomer  }) |
-        @Html.ActionLink("Delete", "Delete", new {  id=item.IdCustomer  })
-    </td>
-    </tr>
-}
+    @foreach (var item in Model.Customers)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalPurchasesAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdCustomer)
+            </td>
+            <td>
+                <table class="table table-light table-bordered table-sm fs-6">
+                    @for (var index = 0; index < item.Notes.Count; index++)
+                    {
+                        var note = item.Notes[index];
+                        <tr>
+                            <td>
+                                @note
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </td>
+            <td>
+                <table class="table table-responsive table-bordered">
+                    @for (var index = 0; index < item.AddressesList.Count; index++)
+                    {
+                        var address = item.AddressesList[index];
+                        <tr>
+                            <td>
+                                @address.Country,
+                                @address.State,
+                                @address.PostalCode,
+                                @address.City,
+                                @address.TypeAddress,
+                                @address.AddressLine
+                                @address.AddressLine2
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.IdCustomer }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.IdCustomer })
+            </td>
+        </tr>
+    }
 
 </table>
+
+<div class="btn-group">
+    @Html.PageLinks(Model.paginationPage, x => Url.Action("Index", new { page = x }))
+</div>

@@ -146,11 +146,13 @@ namespace CustomerClassLibrary.Business
             return _customerRepository.CountOfCustomers();
         }
 
-        public void UpdateCustomer(Customer customer)
+        public Customer UpdateCustomer(Customer customer)
         {
 
             _customerRepository.Update(customer);
             UpdateAddressList(customer);
+            return _customerRepository.Read(customer.IdCustomer);
+
         }
         public void UpdateAddressList(Customer customer)
         {
@@ -221,7 +223,7 @@ namespace CustomerClassLibrary.Business
         public void DeleteCustomer(int idCustomer);
         public List<Customer> GetAllCustomersFromNumber(int numberOfRow, int sumRow);
         public int GetCountCustomer();
-        public void UpdateCustomer(Customer customer);
+        public Customer UpdateCustomer(Customer customer);
         public void UpdateAddressList(Customer customer);
         public List<Tuple<string, string>> Validate(Customer customer);
         public List<Tuple<string, string>> ValidateAddress(Address address);

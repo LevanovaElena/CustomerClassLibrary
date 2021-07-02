@@ -13,7 +13,7 @@
             
             <h4>Addresses</h4>
             <div class="">
-                <input type="submit" name="action" value="AddAddress" class="btn btn-default btn-xs" />
+                <input type="submit" name="action" value="AddAddress" formaction=@Url.Action("AddAddress",new {id=Model.IdCustomer ,viewName=ViewBag.Type}) formmethod="post" class="btn btn-default btn-xs" />
             </div>
         </div>
 
@@ -71,11 +71,9 @@
 
                             </td>
                             <td>
-                                @using (Html.BeginForm(new { idAdd = @Model.AddressesList[i].IdAddress }))
-                                {
-                                    <input type="submit" name="action" value="Delete" class="btn btn-default" />
-                                    @Html.Hidden("idDelete", @Model.AddressesList[i].IdAddress)
-                                }
+
+                                    <input type="submit" name="action" value="Delete"  formaction=@Url.Action("DeleteAddress",new {id=Model.IdCustomer ,viewName=ViewBag.Type,idDeleteAddress= Model.AddressesList[i].IdAddress}) formmethod="post" class="btn btn-default" />
+
                             </td>
 </tr>
                 }

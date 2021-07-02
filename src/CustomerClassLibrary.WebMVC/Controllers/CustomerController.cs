@@ -1,9 +1,11 @@
 ﻿using CustomerClassLibrary.Business;
+using CustomerClassLibrary.WebMVC.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace CustomerClassLibrary.WebMVC.Controllers
 {
@@ -11,17 +13,26 @@ namespace CustomerClassLibrary.WebMVC.Controllers
     {
 
         private readonly ICustomerService _customerService;
+        
+        public PaginationPageInfo PaginationPageInfo { get; set; }
+        public List<Customer> CustomersPerPage { get; set; }
 
         public CustomerController()
         {
             _customerService = new CustomerService();
         }
         // GET: Customer
-        public ActionResult Index()
+        public ActionResult Index(int page=1)
         {
-            List<Customer> customers = new List<Customer>();
-            customers = _customerService.GetAllCustomers();
-            return View(customers);
+            int pageSize = 5;
+            int countOfAllCustomers = _customerService.GetCountCustomer();
+            PaginationPageInfo =new PaginationPageInfo { PageNumber = page, PageSize = pageSize, TotalItems = countOfAllCustomers };
+            CustomersPerPage = _customerService.GetAllCustomersFromNumber(PaginationPageInfo.PageSize, PaginationPageInfo.PageSize * PaginationPageInfo.PageNumber);
+            IndexViewModel indexView = new IndexViewModel { Customers = CustomersPerPage, paginationPage = PaginationPageInfo };
+
+
+
+            return View(indexView);
         }
 
         // GET: Customer/Details/5
@@ -34,29 +45,19 @@ namespace CustomerClassLibrary.WebMVC.Controllers
         public ActionResult Create()
         {
             Customer customer = new Customer();
+            customer.Notes.Add("");
             customer.AddressesList.Add(new Address());
             return View(customer);
         }
 
         // POST: Customer/Create
         [HttpPost]
-        public ActionResult Create(Customer customer,string action)
+        public ActionResult Create(Customer customer)
         {
             try
             {
-                if (action == "AddAddress")
-                {
-                    customer.AddressesList.Add(new Address());
-                    return View(customer);
-                }
-                // TODO: Add insert logic here
-                else
-                {
-                    _customerService.Create(customer);
-
-                    return RedirectToAction("Index");
-                }
-                
+                _customerService.Create(customer);
+                return RedirectToAction("Index");
             }
             catch(Exception e)
             {
@@ -94,45 +95,67 @@ namespace CustomerClassLibrary.WebMVC.Controllers
 
         // POST: Customer/Edit/5
         [HttpPost]
-        public ActionResult Edit(Customer customer, string action,string idDelete,int id)
+        public ActionResult Edit(Customer customer,int id)
         {
             try
             {
                 if (customer.IdCustomer == 0) customer = _customerService.GetCustomer(id);
-                if (action == "AddAddress")
-                {
-
-                    customer.AddressesList.Add(new Address(customer.IdCustomer));
-                    return View(customer);
-                }
-                else if (action == "Save")
-                {
-                    _customerService.UpdateCustomer(customer);
-                    return RedirectToAction("Index");
-                }
-               else
-                {
-
-                    int k = -1;
-                    int idAddress = int.Parse(idDelete);
-                    foreach (Address address in customer.AddressesList)
-                    {
-                        if (address.IdAddress == idAddress)
-                        {
-                            k = customer.AddressesList.FindIndex( address);
-                            break;
-                        }
-                    }
-                    customer.AddressesList.RemoveAt(k);
-                    _customerService.UpdateAddressList(customer);
-                }
-                return View(customer);
+                customer = _customerService.UpdateCustomer(customer);
+                return RedirectToAction("Index");
             }
             catch (Exception e)
             {
                 ViewBag.Message = e.Message;
                 return View("Error");
             }
+        }
+        // POST: Customer/Edit/5
+        [HttpPost]
+        public ActionResult AddAddress(Customer customer, int id, string viewName)
+        {
+            customer.AddressesList.Add(new Address(customer.IdCustomer));
+            return View(viewName, customer);
+        }
+        // POST: Customer/Edit/5
+        [HttpPost]
+        public ActionResult DeleteAddress(Customer customer, int id, string viewName, int idDeleteAddress)
+        {
+            if (idDeleteAddress > 0)
+            {
+                int k = 0;
+                foreach (Address address in customer.AddressesList)
+                {
+                    if (address.IdAddress == idDeleteAddress)
+                    {
+                        k = customer.AddressesList.IndexOf(address);
+                        break;
+                    }
+                }
+                if (k != -1) customer.AddressesList.RemoveAt(k);
+                _customerService.UpdateAddressList(customer);
+                customer.AddressesList = _customerService.GetCustomer(id).AddressesList;
+                return View(viewName, customer);
+            }
+            return View(viewName, customer);
+        }
+
+        // POST: Customer/Edit/5
+        [HttpPost]
+        public ActionResult AddNote(Customer customer, int id,string viewName)
+        {
+            customer.Notes.Add("");
+            return View(viewName, customer);
+        }
+        // POST: Customer/Edit/5
+        [HttpPost]
+        public ActionResult DeleteNote(Customer customer, int id, string viewName, int deleteNote)
+        {
+            if (deleteNote >= 0&&customer.Notes.Count>0)
+            {
+                customer.Notes.RemoveAt(deleteNote);
+            }
+            //else customer.Notes.RemoveAt(customer.Notes.Count - 1);
+            return View(viewName, customer);
         }
 
         // GET: Customer/Delete/5

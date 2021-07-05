@@ -53,7 +53,7 @@ namespace CustomerClassLibrary
             City = address.City;
             PostalCode = address.PostalCode;
             State = address.State;
-            TypeAddress = address.TypeAddress;
+            TypeAddressEnum = address.TypeAddressEnum;
             IdAddress = address.IdAddress;
             IdCustomer = address.IdCustomer;
         }
@@ -89,7 +89,7 @@ namespace CustomerClassLibrary
                             case "State":
                                 StateError = error.ErrorMessage;
                                 break;
-                            case "TypeAddress":
+                            case "TypeAddressEnum":
                                 TypeAddressError = error.ErrorMessage;
                                 break;
                         }

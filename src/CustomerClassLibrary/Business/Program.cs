@@ -37,7 +37,21 @@ namespace CustomerClassLibrary.Business
             customer.AddressesList.Add(address);
             EFData.EFCustomerRepository eFCustomerRepository = new EFData.EFCustomerRepository();
             //eFCustomerRepository.Create(customer);
-            Console.WriteLine(eFCustomerRepository.Create(customer));
+            customer.IdCustomer = eFCustomerRepository.Create(customer);
+            Console.WriteLine(customer.IdCustomer);
+
+
+            Console.WriteLine("id для выборки: "+customer.IdCustomer);
+
+            Customer customer1 = eFCustomerRepository.Read(customer.IdCustomer);
+
+            Console.WriteLine("прочли:"+customer1.FirstName);
+
+            Console.WriteLine("customersCunt:" + eFCustomerRepository.CountOfCustomers());
+
+            eFCustomerRepository.Delete(customer.IdCustomer);
+
+            Console.WriteLine("customersCunt:" + eFCustomerRepository.CountOfCustomers());
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace CustomerClassLibrary
+namespace CustomerClassLibrary.Common
 {
     [Serializable]
     internal class NotCorrectValuesForCreateCustomer : Exception

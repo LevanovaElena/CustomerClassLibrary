@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Newtonsoft.Json;
 
 namespace CustomerClassLibrary
 {
@@ -22,7 +23,7 @@ namespace CustomerClassLibrary
         public override string LastName { get; set; }
 
         [AddressListAttribute]
-        
+
         public List<Address> AddressesList { get; set; }
 
 
@@ -38,7 +39,23 @@ namespace CustomerClassLibrary
 
         [Required(ErrorMessage = "Note cannot be empty, at least 1 note must be provided.")]
         [NotesListAttribute]
-        public List<string> Notes { get; set; }
+        [NotMapped]
+        public List<string> Notes { get; set; }  = new List<string>();
+
+        [Column("notes")]
+        public string NotesString
+        {
+            get
+            {
+                if (Notes.Count > 0) return JsonConvert.SerializeObject(Notes);
+                else return "";
+            }
+            set 
+            {
+                if (value != "") Notes= JsonConvert.DeserializeObject<List<string>>(value);
+                else Notes = new List<string>();
+            }
+        }
 
         [Column("total_purchases_amount")]
         public decimal? TotalPurchasesAmount { get; set; }
@@ -49,9 +66,8 @@ namespace CustomerClassLibrary
 
         public Customer()
         {
-            FirstName = "Lena";
             AddressesList = new List<Address>();
-            Notes = new List<string>();
+            //NotesString = "";
         }
     }
 }

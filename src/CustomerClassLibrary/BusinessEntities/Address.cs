@@ -23,9 +23,21 @@ namespace CustomerClassLibrary
         public string AddressLine2 { get; set; }
 
         [Required(ErrorMessage = "AddressType is required.")]
-        [Column("address_type")]
-        public AddressType TypeAddress { get; set; }
+        [NotMapped]
+        public AddressType TypeAddressEnum { get; set; }
 
+        [Column("address_type")]
+        public string TypeAddress { 
+            get
+            { 
+                return TypeAddressEnum.ToString(); 
+            } 
+            set 
+            {
+                TypeAddressEnum = (AddressType)Enum.Parse(typeof(AddressType), value, true);
+                    
+            } 
+        }
 
         [Required(ErrorMessage = "City is required.")]
         [StringLength(50, ErrorMessage = "City should maximum 50 lenght.")]
@@ -55,9 +67,11 @@ namespace CustomerClassLibrary
         public int IdAddress { get; set; } = 0;
 
         
-        [ForeignKey("customer_id")]
+        
         [Column("customer_id")]
         public int IdCustomer { get; set; } = 0;
+        [ForeignKey("IdCustomer")]
+        public Customer Customer { get; set; }
 
         public Address()
         {

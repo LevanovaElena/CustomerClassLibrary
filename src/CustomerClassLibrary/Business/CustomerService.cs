@@ -1,4 +1,5 @@
-﻿using CustomerClassLibrary.Repositories;
+﻿using CustomerClassLibrary.Common;
+using CustomerClassLibrary.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;

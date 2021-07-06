@@ -37,7 +37,7 @@ namespace IntegrationTests
         }
 
         [Fact]
-        public void ShouldBeAbleToDeleteAllNoteByCustomer()
+        public void ShouldBeAbleToDeleteAllAddressesByCustomer()
         {
             var repositoryFixture = new AddressRepositoryFixture();
             AddressRepository noteRep = new AddressRepository();

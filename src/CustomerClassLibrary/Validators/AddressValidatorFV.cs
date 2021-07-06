@@ -17,8 +17,8 @@ namespace CustomerClassLibrary
 
             RuleFor(address => address.AddressLine2).Length(0, 100).WithMessage("AddressLine2 should maximum 100 lenght.");
 
-            RuleFor(address => address.TypeAddress).NotNull().WithMessage("TypeAddress is required.");
-            RuleFor(address => address.TypeAddress).Must(item=> item==AddressType.Billing||item==AddressType.Shipping).WithMessage("TypeAddress should AddressType.");
+            RuleFor(address => address.TypeAddressEnum).NotNull().WithMessage("TypeAddressEnum is required.");
+            RuleFor(address => address.TypeAddressEnum).Must(item=> item==AddressType.Billing||item==AddressType.Shipping).WithMessage("TypeAddressEnum should AddressType.");
 
             RuleFor(address => address.City).NotNull().WithMessage("City is required.");
             RuleFor(address => address.City).Length(2, 50).WithMessage("City should maximum 50 lenght.");

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,6 +32,7 @@ namespace CustomerClassLibrary
     }
 
     [Serializable]
+    [NotMapped]
     public class AddressWithValidationField : Address
     {
         public bool IsError { get; set; } = false;
@@ -51,7 +53,7 @@ namespace CustomerClassLibrary
             City = address.City;
             PostalCode = address.PostalCode;
             State = address.State;
-            TypeAddress = address.TypeAddress;
+            TypeAddressEnum = address.TypeAddressEnum;
             IdAddress = address.IdAddress;
             IdCustomer = address.IdCustomer;
         }
@@ -87,7 +89,7 @@ namespace CustomerClassLibrary
                             case "State":
                                 StateError = error.ErrorMessage;
                                 break;
-                            case "TypeAddress":
+                            case "TypeAddressEnum":
                                 TypeAddressError = error.ErrorMessage;
                                 break;
                         }

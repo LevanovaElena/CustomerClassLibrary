@@ -46,10 +46,10 @@ namespace CustomerClassLibrary.Test
                     
             }
 
-            address.TypeAddress = AddressType.Billing;
-            Assert.Equal(1, (decimal)address.TypeAddress);
-            address.TypeAddress = AddressType.Shipping;
-            Assert.Equal(0, (decimal)address.TypeAddress);
+            address.TypeAddressEnum = AddressType.Billing;
+            Assert.Equal(1, (decimal)address.TypeAddressEnum);
+            address.TypeAddressEnum = AddressType.Shipping;
+            Assert.Equal(0, (decimal)address.TypeAddressEnum);
           
 
         }

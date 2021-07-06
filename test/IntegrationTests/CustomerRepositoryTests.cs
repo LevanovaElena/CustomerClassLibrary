@@ -118,7 +118,6 @@ namespace IntegrationTests
 
             List<Customer> listCustomer = customerRepository.ReadCustomerFromNumber(5,5);
             Assert.NotEmpty(listCustomer);
-
         }
 
         [Fact]

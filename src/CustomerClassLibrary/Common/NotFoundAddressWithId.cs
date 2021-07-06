@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace CustomerClassLibrary.Common
 {
     [Serializable]
-    internal class NotFoundAddressWithId : Exception
+    public class NotFoundAddressWithId : Exception
     {
         public NotFoundAddressWithId()
         {

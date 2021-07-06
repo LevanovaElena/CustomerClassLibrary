@@ -111,10 +111,23 @@ namespace IntegrationTests
             customerRepositoryFixture.CreateMockCustomerWithoutDelete();
             customerRepositoryFixture.CreateMockCustomerWithoutDelete();
 
-            List<Customer> listCustomer = customerRepository.ReadCustomerFromNumber(2, 2);
+            List<Customer> listCustomer = customerRepository.ReadCustomerFromNumber(2,2);
             Assert.NotEmpty(listCustomer);
             Assert.Equal(2,listCustomer.Count);
             Assert.Equal(3, listCustomer[0].IdCustomer);
+
+            listCustomer = customerRepository.ReadCustomerFromNumber(0, 5);
+            Assert.NotEmpty(listCustomer);
+            Assert.Equal(4, listCustomer.Count);
+            Assert.Equal(1, listCustomer[0].IdCustomer);
+
+            customerRepositoryFixture.CreateMockCustomerWithoutDelete();
+            customerRepositoryFixture.CreateMockCustomerWithoutDelete();
+
+            listCustomer = customerRepository.ReadCustomerFromNumber(5, 5);
+            Assert.NotEmpty(listCustomer);
+            Assert.Single(listCustomer);
+            Assert.Equal(6, listCustomer[0].IdCustomer);
         }
         [Fact]
         public void ShouldBeAbleToUpdateCustomer()

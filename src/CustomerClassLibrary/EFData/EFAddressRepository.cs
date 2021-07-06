@@ -40,10 +40,12 @@ namespace CustomerClassLibrary.EFData
 
         public void DeleteAllByCustomer(int idCustomer)
         {
-            var list = ReadByIdCustomer(idCustomer);
-            _context.Addresses.RemoveRange(_context.Addresses.Where(x => x.IdCustomer == idCustomer));
-            _context.SaveChanges();
-        }
+
+                var listDelete= _context.Addresses.RemoveRange(_context.Addresses.Where(x => x.IdCustomer == idCustomer));
+                _context.SaveChanges();
+           
+               if(listDelete==null)throw new NotFoundAddressWithId("Not found addresses for customer id= " + idCustomer); 
+            }
 
         public void DeleteByIdAddress(int idAddress)
         {

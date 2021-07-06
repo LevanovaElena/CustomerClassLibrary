@@ -88,19 +88,22 @@ namespace CustomerClassLibrary.EFData
 
         public Customer Read(int idCustomer)
         {
-            var customer= _context.Customers.Find(idCustomer);
+            var customer= _context.Customers
+                .Include("AddressesList")
+                .Where(c => c.IdCustomer == idCustomer)
+                .FirstOrDefault(); 
             return customer;
         }
 
         public List<Customer> ReadAll()
         {
-            var list= _context.Customers.ToList();
+            var list= _context.Customers.Include("AddressesList").ToList();
             return list;
         }
 
-        public List<Customer> ReadCustomerFromNumber(int numberOfRow, int numberFromRow)
+        public List<Customer> ReadCustomerFromNumber(int numberOfNotView, int numberOfRow)
         {
-            List<Customer> result = _context.Customers.OrderBy(p=>p.IdCustomer).Skip(numberFromRow).Take(numberOfRow).ToList();
+            List<Customer> result = _context.Customers.Include("AddressesList").OrderBy(p=>p.IdCustomer).Skip(numberOfNotView).Take(numberOfRow).ToList();
             return result;
         }
 

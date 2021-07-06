@@ -19,7 +19,7 @@ namespace CustomerClassLibrary.WebMVC.Controllers
 
         public CustomerController()
         {
-            _customerService = new CustomerService();
+            _customerService = new EFCustomerService();
         }
         // GET: Customer
         public ActionResult Index(int page=1)
@@ -27,7 +27,8 @@ namespace CustomerClassLibrary.WebMVC.Controllers
             int pageSize = 5;
             int countOfAllCustomers = _customerService.GetCountCustomer();
             PaginationPageInfo =new PaginationPageInfo { PageNumber = page, PageSize = pageSize, TotalItems = countOfAllCustomers };
-            CustomersPerPage = _customerService.GetAllCustomersFromNumber(PaginationPageInfo.PageSize, PaginationPageInfo.PageSize * PaginationPageInfo.PageNumber);
+            int rowNotView =  PaginationPageInfo.PageSize * (PaginationPageInfo.PageNumber-1);
+            CustomersPerPage = _customerService.GetAllCustomersFromNumber(rowNotView, PaginationPageInfo.PageSize);
             IndexViewModel indexView = new IndexViewModel { Customers = CustomersPerPage, paginationPage = PaginationPageInfo };
 
 
@@ -109,6 +110,8 @@ namespace CustomerClassLibrary.WebMVC.Controllers
                 return View("Error");
             }
         }
+
+
         // POST: Customer/Edit/5
         [HttpPost]
         public ActionResult AddAddress(Customer customer, int id, string viewName)
@@ -120,22 +123,16 @@ namespace CustomerClassLibrary.WebMVC.Controllers
         [HttpPost]
         public ActionResult DeleteAddress(Customer customer, int id, string viewName, int idDeleteAddress)
         {
-            if (idDeleteAddress > 0)
+            if (customer.AddressesList.Count > 1)
             {
-                int k = 0;
-                foreach (Address address in customer.AddressesList)
+                if (idDeleteAddress > 0)
                 {
-                    if (address.IdAddress == idDeleteAddress)
-                    {
-                        k = customer.AddressesList.IndexOf(address);
-                        break;
-                    }
+                    _customerService.DeleteAddress(idDeleteAddress);
+                    customer.AddressesList = _customerService.GetCustomer(id).AddressesList;
+                    return View(viewName, customer);
                 }
-                if (k != -1) customer.AddressesList.RemoveAt(k);
-                _customerService.UpdateAddressList(customer);
-                customer.AddressesList = _customerService.GetCustomer(id).AddressesList;
-                return View(viewName, customer);
             }
+            else ViewBag.ErrorMessage = "Customer must have one address!";
             return View(viewName, customer);
         }
 
@@ -150,11 +147,11 @@ namespace CustomerClassLibrary.WebMVC.Controllers
         [HttpPost]
         public ActionResult DeleteNote(Customer customer, int id, string viewName, int deleteNote)
         {
-            if (deleteNote >= 0&&customer.Notes.Count>0)
+            if (deleteNote >= 0 && customer.Notes.Count > 1)
             {
                 customer.Notes.RemoveAt(deleteNote);
             }
-            //else customer.Notes.RemoveAt(customer.Notes.Count - 1);
+            else ViewBag.ErrorMessage = "Customer must have one note!";
             return View(viewName, customer);
         }
 

@@ -215,6 +215,11 @@ namespace CustomerClassLibrary.Business
             }
            return customer;
         }
+
+        public void DeleteAddress(int idDeleteAddress)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public interface ICustomerService
@@ -230,5 +235,6 @@ namespace CustomerClassLibrary.Business
         public List<Tuple<string, string>> ValidateAddress(Address address);
         public void UpdateAddress(Address address, int idCustomer);
         public Customer Create(Customer customer);
+        void DeleteAddress(int idDeleteAddress);
     }
 }

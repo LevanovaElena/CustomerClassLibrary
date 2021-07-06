@@ -32,13 +32,12 @@ namespace IntegrationTests
             Address address = addressRepositoryFixture.MockAddress();
             Address address2 = addressRepositoryFixture.MockAddress();
 
-            //addressRepository.Create(address, customerRepositoryFixture.IdCustomer);
             Assert.NotEqual(0, addressRepository.Create(address, addressRepositoryFixture.IdCustomer));
             addressRepository.Create(address2, addressRepositoryFixture.IdCustomer);
         }
 
         [Fact]
-        public void ShouldBeAbleReadAddressByIdAddress()
+        public void ShouldReadAddressByIdAddress()
         {
             var addressRepositoryFixture = new EFAddressRepositoryFixture();
             EFAddressRepository addressRepository = new EFAddressRepository();
@@ -53,11 +52,13 @@ namespace IntegrationTests
             Assert.Equal(address.Country, addressRead.Country);
             Assert.Equal(address.City, addressRead.City);
             Assert.Equal(address.PostalCode, addressRead.PostalCode);
-            //Assert.Equal(address.State, addressRead.State);
+
+            Address addressNotFound = addressRepository.ReadByIdAddress(5000);
+            Assert.Null(addressNotFound);
         }
 
         [Fact]
-        public void ShouldBeAbleReadAddressByIdCustomer()
+        public void ShouldReadAddressByIdCustomer()
         {
             var addressRepositoryFixture = new EFAddressRepositoryFixture();
             EFAddressRepository addressRepository = new EFAddressRepository();
@@ -66,10 +67,12 @@ namespace IntegrationTests
             List<Address> addressRead = addressRepository.ReadByIdCustomer(addressRepositoryFixture.IdCustomer);
             Assert.NotEmpty(addressRead);
 
+            List<Address> addressNotFound = addressRepository.ReadByIdCustomer(5000);
+            Assert.Empty(addressNotFound);
         }
 
         [Fact]
-        public void ShoulddeleteAddressByIdAddress()
+        public void ShouldDeleteAddressByIdAddress()
         {
             var addressRepositoryFixture = new EFAddressRepositoryFixture();
             EFAddressRepository addressRepository = new EFAddressRepository();
@@ -80,6 +83,7 @@ namespace IntegrationTests
             addressRepository.DeleteByIdAddress(address.IdAddress);
             Assert.Null(addressRepository.ReadByIdAddress(address.IdAddress));
 
+            Assert.Throws<NotFoundAddressWithId>(()=> addressRepository.DeleteByIdAddress(address.IdAddress));
         }
 
         [Fact]
@@ -94,6 +98,7 @@ namespace IntegrationTests
             addressRepository.DeleteAllByCustomer(address.IdCustomer);
             Assert.Null(addressRepository.ReadByIdAddress(address.IdAddress));
 
+            //Assert.Throws<NotFoundAddressWithId>(() => addressRepository.DeleteAllByCustomer(address.IdCustomer));
         }
 
         [Fact]

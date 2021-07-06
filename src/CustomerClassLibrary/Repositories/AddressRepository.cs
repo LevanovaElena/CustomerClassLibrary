@@ -43,7 +43,7 @@ namespace CustomerClassLibrary.Repositories
                 });
                 command.Parameters.Add(new SqlParameter("@address_type", SqlDbType.VarChar, 15)
                 {
-                    Value = address.TypeAddress
+                    Value = address.TypeAddressEnum
                 });
                 command.Parameters.Add(new SqlParameter("@city", SqlDbType.VarChar, 50)
                 {
@@ -95,7 +95,7 @@ namespace CustomerClassLibrary.Repositories
                         {
                             AddressLine = reader["address_line"]?.ToString(),
                             AddressLine2 = reader["address_line2"]?.ToString(),
-                            TypeAddress = (AddressType)Enum.Parse(typeof(AddressType),reader["address_type"].ToString()),
+                            TypeAddressEnum = (AddressType)Enum.Parse(typeof(AddressType),reader["address_type"].ToString()),
                             City = reader["city"]?.ToString(),
                             PostalCode = reader["postal_code"]?.ToString(),
                             State = reader["state"]?.ToString(),
@@ -149,7 +149,7 @@ namespace CustomerClassLibrary.Repositories
                 });
                 command.Parameters.Add(new SqlParameter("@address_type", SqlDbType.VarChar, 15)
                 {
-                    Value = address.TypeAddress
+                    Value = address.TypeAddressEnum
                 });
                 command.Parameters.Add(new SqlParameter("@city", SqlDbType.VarChar, 50)
                 {
@@ -224,7 +224,7 @@ namespace CustomerClassLibrary.Repositories
                         {
                             AddressLine = reader["address_line"]?.ToString(),
                             AddressLine2 = reader["address_line2"]?.ToString(),
-                            TypeAddress = (AddressType)Enum.Parse(typeof(AddressType), reader["address_type"].ToString()),
+                            TypeAddressEnum = (AddressType)Enum.Parse(typeof(AddressType), reader["address_type"].ToString()),
                             City = reader["city"]?.ToString(),
                             PostalCode = reader["postal_code"]?.ToString(),
                             State = reader["state"]?.ToString(),

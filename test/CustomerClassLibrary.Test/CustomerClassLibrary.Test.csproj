@@ -26,8 +26,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\CustomerClassLibrary.WebMVC.Tests\CustomerClassLibrary.WebMVC.Tests.csproj" />
     <ProjectReference Include="..\..\src\CustomerClassLibrary.WebForm\CustomerClassLibrary.WebForm.csproj" />
+    <ProjectReference Include="..\..\src\CustomerClassLibrary.WebMVC\CustomerClassLibrary.WebMVC.csproj" />
     <ProjectReference Include="..\..\src\CustomerClassLibrary\CustomerClassLibrary.csproj" />
   </ItemGroup>
 
